@@ -25,7 +25,7 @@ int main()
     cout << "Enter a year ";
     cin >> x;
 
-    ly = (x % 4 == 0 || (x % 400 == 0 && x % 100 == 0));
+       ly = (x % 400 == 0) || ((x % 4 == 0) && (x % 100 != 0));
 
     cout << "Is " << x << " a leap year?:" << boolalpha << ly << endl;
     cout << endl;
