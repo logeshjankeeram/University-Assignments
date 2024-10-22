@@ -19,10 +19,10 @@ int main()
 
     double w, h, BMI;
 
-    cout << "Enter your weight in Kg";
+    cout << "Enter your weight in Kg: ";
     cin >> w;
 
-    cout << "Enter your height cm";
+    cout << "Enter your height cm: ";
     cin >> h;
 
     h = h / 100;
