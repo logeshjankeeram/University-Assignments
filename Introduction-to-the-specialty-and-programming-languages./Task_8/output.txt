@@ -1,2 +1,0 @@
-Furthermost Point is (-30, -30)
-Distance from Origin is  42.4264
