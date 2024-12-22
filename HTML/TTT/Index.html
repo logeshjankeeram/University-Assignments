@@ -89,7 +89,7 @@
 
                 // Check if all three cells in a winning combo are the same
                 if (boardState[a] !== "" && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
-                    statusDiv.textContent = `Player ${currentPlayer} wins! 🎉`;
+                    statusDiv.textContent = `Player ${currentPlayer} wins!`;
                     gameActive = false;
                     return;
                 }
@@ -97,7 +97,7 @@
 
             // Check for a draw
             if (!boardState.includes("")) {
-                statusDiv.textContent = "It's a draw! 🤝";
+                statusDiv.textContent = "Draw";
                 gameActive = false;
                 return;
             }
