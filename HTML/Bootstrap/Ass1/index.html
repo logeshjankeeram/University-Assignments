@@ -4,57 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Table Layout</title>
+    <title>Homework</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .custom-cell {
-            border: 1px solid black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-
-        .row {
-            min-height: 60px;
+        .table-custom td {
+            text-align: center;
+            vertical-align: middle;
         }
     </style>
 </head>
 
-<body>
-    <div class="container mt-4">
-        <h2>Homework</h2>
-        <p>1st assignment - using Bootstrap grid</p>
+<body class="p-3">
 
-        <div class="row g-0">
-            <div class="col-3">
-                <div class="custom-cell h-100">1</div>
-            </div>
-            <div class="col-6">
-                <div class="row g-0">
-                    <div class="col-12">
-                        <div class="custom-cell" style="height: 120px;">2</div>
-                    </div>
-                    <div class="col-12">
-                        <div class="custom-cell">5</div>
-                    </div>
-                    <div class="col-12">
-                        <div class="custom-cell" style="height: 120px;">6</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="row g-0 h-100">
-                    <div class="col-12" style="height: 60px;">
-                        <div class="custom-cell h-100">3</div>
-                    </div>
-                    <div class="col-12" style="height: 240px;">
-                        <div class="custom-cell h-100">4</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <h2 class="text-center mb-3">Homework</h2>
+    <p class="text-center">1st assignment - using colspan, rowspan</p>
+
+    <div class="container">
+        <table class="table table-bordered table-custom">
+            <tbody>
+                <tr>
+                    <td colspan="1" rowspan="4">1</td>
+                    <td colspan="2" rowspan="2">2</td>
+                    <td colspan="1">3</td>
+                </tr>
+                <tr>
+                    <td rowspan="4">4</td>
+                </tr>
+                <tr>
+                    <td colspan="2">5</td>
+                </tr>
+                <tr>
+                    <td colspan="2" rowspan="2">6</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
