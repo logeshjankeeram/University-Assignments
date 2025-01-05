@@ -1,56 +1,56 @@
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 
-const gridSize = 20;
-canvas.width = gridSize * 20;
-canvas.height = gridSize * 20;
+const size = 20;
+canvas.width = size * 20;
+canvas.height = size * 20;
 
 let snake = [{ x: 10, y: 10 }];
-let fruit = getNewFruitPosition();
-let direction = { x: 0, y: 0 }; // Start still
+let fruit = newFruit();
+let dir = { x: 0, y: 0 };
 let grow = false;
-let target = { x: 10, y: 10 }; // Target point for the cursor
-let gameStarted = false; // Flag to check if the game has started
+let aim = { x: 10, y: 10 };
+let started = false;
 
-function drawRect(x, y, color) {
+function draw(x, y, color) {
     ctx.fillStyle = color;
-    ctx.fillRect(x * gridSize, y * gridSize, gridSize - 1, gridSize - 1);
+    ctx.fillRect(x * size, y * size, size - 1, size - 1);
 }
 
-function getNewFruitPosition() {
-    let newFruit;
+function newFruit() {
+    let f;
     do {
-        newFruit = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
-    } while (snake.some(segment => segment.x === newFruit.x && segment.y === newFruit.y));
-    return newFruit;
+        f = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
+    } while (snake.some(part => part.x === f.x && part.y === f.y));
+    return f;
 }
 
-function moveSnakeTowardsTarget() {
-    if (target.x > snake[0].x) direction = { x: 1, y: 0 };
-    else if (target.x < snake[0].x) direction = { x: -1, y: 0 };
-    else if (target.y > snake[0].y) direction = { x: 0, y: 1 };
-    else if (target.y < snake[0].y) direction = { x: 0, y: -1 };
+function moveSnake() {
+    if (aim.x > snake[0].x) dir = { x: 1, y: 0 };
+    else if (aim.x < snake[0].x) dir = { x: -1, y: 0 };
+    else if (aim.y > snake[0].y) dir = { x: 0, y: 1 };
+    else if (aim.y < snake[0].y) dir = { x: 0, y: -1 };
 }
 
-function updateGame() {
-    if (!gameStarted) return; // Do nothing if the game hasn't started
+function update() {
+    if (!started) return;
 
-    moveSnakeTowardsTarget();
+    moveSnake();
 
-    const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+    const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
-    if (head.x < 0 || head.x >= canvas.width / gridSize || head.y < 0 || head.y >= canvas.height / gridSize || snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+    if (head.x < 0 || head.x >= canvas.width / size || head.y < 0 || head.y >= canvas.height / size || snake.some(part => part.x === head.x && part.y === head.y)) {
         alert('Game Over!');
         snake = [{ x: 10, y: 10 }];
-        direction = { x: 0, y: 0 }; // Reset to still
-        fruit = getNewFruitPosition();
-        gameStarted = false; // Reset the game state
+        dir = { x: 0, y: 0 };
+        fruit = newFruit();
+        started = false;
         return;
     }
 
     snake.unshift(head);
     if (head.x === fruit.x && head.y === fruit.y) {
-        fruit = getNewFruitPosition();
+        fruit = newFruit();
         grow = true;
     }
 
@@ -62,24 +62,24 @@ function updateGame() {
 
 function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawRect(fruit.x, fruit.y, 'red');
-    snake.forEach(segment => drawRect(segment.x, segment.y, 'lime'));
+    draw(fruit.x, fruit.y, 'red');
+    snake.forEach(part => draw(part.x, part.y, 'lime'));
 }
 
 canvas.addEventListener('mousemove', e => {
     const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    target = {
-        x: Math.floor(mouseX / gridSize),
-        y: Math.floor(mouseY / gridSize),
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    aim = {
+        x: Math.floor(mx / size),
+        y: Math.floor(my / size),
     };
-    gameStarted = true; // Start the game on mouse movement
+    started = true;
 });
 
-function gameLoop() {
-    updateGame();
+function loop() {
+    update();
     drawGame();
 }
 
-setInterval(gameLoop, 200);
+setInterval(loop, 200);
