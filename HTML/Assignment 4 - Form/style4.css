@@ -1,0 +1,148 @@
+body {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('rainbow.gif');
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+    /* padding-top: 100px; */
+
+}
+
+header {
+    background-color: #e8a0a0;
+    /* Change this to your desired background color */
+    color: white;
+    /* Change this to your desired text color */
+    text-align: center;
+    /* Center-aligns the text */
+    padding: 20px;
+    /* Adds padding around the text */
+    margin-bottom: 20px;
+    /* Adds space below the header */
+    width: 100%;
+    max-width: 990px;
+    border-radius: 20px 20px 0 0;
+    /* Top corners rounded, bottom corners square */
+
+}
+
+h1 {
+    font-family: 'Dynapuff', cursive;
+    font-size: 56px;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 1030px;
+    /* Set a maximum width */
+    width: 100%;
+    /* Make it responsive */
+    margin: 100px 20px;
+    /* Add some margin on the sides to avoid touching edges */
+}
+
+form {
+    width: 100%;
+    /* Make forms take full width */
+    max-width: 500px;
+    /* Limit the width for better layout */
+    margin-bottom: 20px;
+    /* Space between forms */
+    display: flex;
+    /* Flexbox for better alignment */
+    flex-direction: column;
+    /* Stack labels and inputs */
+}
+
+label {
+    font-weight: bold;
+    /* Make labels bold */
+    margin-bottom: 5px;
+    /* Space below labels */
+}
+
+.text input[type="text"],
+.email input[type="email"],
+.phone input[type="tel"],
+.Date input[type="datetime-local"],
+.number input[type="number"],
+.time input[type="time"],
+.month input[type="month"],
+.week input[type="week"],
+.range input[type="range"],
+.file input[type="file"],
+.colour input[type="color"],
+.URL input[type="url"],
+.datalist input[list="browsers"],
+.textarea textarea,
+.radio input[type="radio"],
+.checkbox input[type="checkbox"],
+select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.radio {
+    display: flex;
+
+    flex-direction: column;
+
+    margin-bottom: 10px;
+
+}
+
+.radio div {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 5px;
+
+}
+
+.radio input[type="radio"] {
+    margin-left: 10px;
+
+}
+
+.checkbox {
+    display: flex;
+
+    flex-direction: column;
+
+    margin-bottom: 10px;
+
+}
+
+.checkbox div {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 5px;
+
+}
+
+.checkbox input[type="radio"] {
+    margin-left: 20 px;
+
+}
