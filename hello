@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Diabetes Presentation Hub</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b1220;
+  color: #e5e7eb;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background: #111827;
+  padding: 15px;
+  border-right: 1px solid #1f2937;
+}
+
+.nav-btn {
+  display: block;
+  padding: 10px;
+  margin: 6px 0;
+  background: #1f2937;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav-btn:hover { background: #374151; }
+
+.shortcut { font-size: 11px; color: #9ca3af; }
+
+/* Main */
+.main {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.section { display: none; }
+.active { display: block; }
+
+/* Search */
+.search-box {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+/* Q&A */
+.qa-item {
+  background: #111827;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.qa-item:hover {
+  background: #1f2937;
+}
+
+.answer {
+  display: none;
+  margin-top: 8px;
+  color: #9ca3af;
+}
+
+.highlight {
+  background: #facc15;
+  color: black;
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+
+/* Command palette */
+#cmd {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 550px;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  display: none;
+  padding: 10px;
+}
+
+#cmd input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #1f2937;
+  color: white;
+  border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h3>Navigation</h3>
+
+  <div class="nav-btn" onclick="show('slides')">📊 Slides</div>
+  <div class="nav-btn" onclick="show('qa')">❓ Q&A</div>
+  <div class="nav-btn" onclick="show('pdf')">📄 PDF</div>
+
+  <p class="shortcut">⌘K → Search</p>
+  <p class="shortcut">⌘J → Slides</p>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- SLIDES -->
+<div id="slides" class="section active">
+<h2>Presentation Script</h2>
+
+<pre style="white-space: pre-wrap; line-height:1.6;">
+Slide 1: Title
+We present diabetes prediction using machine learning.
+
+Slide 2: Context
+We built a hospital screening tool.
+
+Slide 3: Dataset
+BRFSS 2015 with 253k samples.
+
+Slide 4: Preprocessing
+Cleaned + scaled data.
+
+Slide 5: Model
+MLP neural network.
+
+Slide 6: Results
+Better than baseline.
+
+Slide 7: Problem
+Low recall initially.
+
+Slide 8: Fix
+Deeper network + regularization.
+
+Slide 9: Imbalance
+Class weighting works best.
+
+Slide 10: Curves
+Stable training.
+
+Slide 11: Final
+75% recall achieved.
+
+Slide 12: SHAP
+Explains predictions.
+
+Slide 13: Fairness
+Bias detected.
+
+Slide 14: MLOps
+Fully reproducible.
+
+Slide 15: Conclusion
+Strong + explainable model.
+</pre>
+</div>
+
+<!-- Q&A -->
+<div id="qa" class="section">
+<h2>Q&A (Smart Search)</h2>
+
+<input class="search-box" id="search" placeholder="Search questions..." />
+
+<div id="qaList"></div>
+</div>
+
+<!-- PDF -->
+<div id="pdf" class="section">
+<h2>PDF</h2>
+<iframe src="Predicting-Diabetes-Risk-from-Health-Survey-Data.pdf"></iframe>
+</div>
+
+</div>
+</div>
+
+<!-- COMMAND PALETTE -->
+<div id="cmd">
+<input id="cmdInput" placeholder="Search Q&A..." />
+</div>
+
+<script>
+
+/* ================= NAV ================= */
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ================= FULL Q&A DATA ================= */
+const qa = [
+/* ================= LOW LEVEL ================= */
+
+{q:"What is the name of your project?", a:"Predicting Diabetes Risk from Health-Survey Data."},
+{q:"What is the dataset used?", a:"BRFSS 2015 CDC survey dataset."},
+{q:"How many samples are there?", a:"253,680 individuals."},
+{q:"How many features?", a:"21 features."},
+{q:"What is the target variable?", a:"Diabetes_binary (binary classification)."},
+{q:"What is class imbalance?", a:"Only 15.3% positive cases."},
+{q:"Train/val/test split?", a:"70/15/15 stratified split."},
+{q:"Why stratified split?", a:"To preserve class distribution."},
+{q:"What scaler used?", a:"StandardScaler."},
+{q:"Why scaling needed?", a:"Improves neural network training stability."},
+{q:"What is MLP?", a:"Feedforward neural network for tabular data."},
+{q:"Baseline model?", a:"Logistic Regression (AUC 0.807)."},
+{q:"What is ROC-AUC?", a:"Measures ranking quality between classes."},
+{q:"What is SMOTE?", a:"Synthetic oversampling method."},
+{q:"What is class weighting?", a:"Loss adjustment for imbalanced classes."},
+{q:"What is SHAP?", a:"Feature attribution explanation method."},
+{q:"Final recall?", a:"75%."},
+{q:"Final AUC?", a:"0.8175."},
+{q:"Main issue found?", a:"Low recall for diabetics."},
+
+/* ================= MID LEVEL ================= */
+
+{q:"Why MLP instead of tree models?", a:"Better at learning nonlinear interactions."},
+{q:"Why not CNN or RNN?", a:"Data is tabular, not image or sequence."},
+{q:"Why BatchNorm used?", a:"Stabilizes training and speeds convergence."},
+{q:"Why dropout used?", a:"Reduces overfitting."},
+{q:"Why L2 regularization?", a:"Penalizes large weights."},
+{q:"Why SMOTE failed?", a:"Introduced synthetic noise."},
+{q:"Why class weighting worked better?", a:"Keeps real data distribution."},
+{q:"What is overfitting?", a:"Model learns training noise."},
+{q:"How detected overfitting?", a:"Gap between train and validation curves."},
+{q:"Why accuracy misleading?", a:"Data is imbalanced."},
+{q:"Why recall important?", a:"Missing diabetics is costly."},
+{q:"Why threshold adjustment needed?", a:"0.5 threshold biased toward majority class."},
+{q:"What threshold improved recall?", a:"0.35–0.55 range tested."},
+{q:"What is early stopping?", a:"Stops training when validation stops improving."},
+{q:"Why Adam optimizer?", a:"Efficient adaptive learning rate."},
+
+/* ================= HIGH LEVEL ================= */
+
+{q:"Why is AUC still not very high?", a:"Real-world health data is noisy and limited."},
+{q:"Why is recall more important than precision?", a:"False negatives are more dangerous medically."},
+{q:"What is main limitation?", a:"Self-reported 2015 US dataset."},
+{q:"What about bias?", a:"Sex-based fairness gap detected."},
+{q:"What is disparate impact ratio?", a:"Measure of fairness across groups."},
+{q:"Why is 0.789 a problem?", a:"Below 0.8 fairness threshold."},
+{q:"How fix fairness issue?", a:"Reweighting or fairness constraints."},
+{q:"What is SHAP used for?", a:"Explain individual predictions."},
+{q:"Why explainability needed?", a:"Medical trust requirement."},
+{q:"Is model deployable?", a:"Not yet, needs calibration & audit."},
+{q:"What is calibration?", a:"Align predicted probabilities with reality."},
+{q:"What is MLOps?", a:"Reproducible ML pipeline management."},
+{q:"What did you log?", a:"Data hash, metrics, environment, model."},
+{q:"Why CO₂ tracked?", a:"Sustainable AI requirement."},
+{q:"Biggest risk?", a:"Bias and generalization failure."},
+
+/* ================= EXAM / TRICK QUESTIONS ================= */
+
+{q:"Why not use deep neural network?", a:"Risk of overfitting small tabular dataset."},
+{q:"What if no scaling used?", a:"Training becomes unstable."},
+{q:"Why test set untouched?", a:"To avoid data leakage."},
+{q:"What is leakage?", a:"Using test info during training."},
+{q:"Why is project realistic?", a:"Uses real hospital-like constraints."},
+{q:"What is strongest improvement?", a:"Recall increase from 17% to 75%."},
+{q:"What is key success metric?", a:"Recall for diabetic detection."},
+{q:"Why not optimize accuracy?", a:"Misleading due to imbalance."},
+{q:"What would improve model more?", a:"More data + better calibration."},
+{q:"Is model biased?", a:"Yes, flagged during fairness audit."}
+
+];
+/* ================= IMPROVED SEARCH ================= */
+
+function tokenize(text){
+  return text.toLowerCase().split(/\s+/);
+}
+
+function score(item, query){
+  const qTokens = tokenize(query);
+  const text = (item.q + " " + item.a).toLowerCase();
+  let score = 0;
+
+  for(let t of qTokens){
+    if(text.includes(t)) score += 2;
+  }
+
+  // boost exact question match
+  if(item.q.toLowerCase().includes(query.toLowerCase())) score += 5;
+
+  return score;
+}
+
+function highlight(text, query){
+  const words = query.split(" ").filter(Boolean);
+  let result = text;
+  for(let w of words){
+    const reg = new RegExp(w, "gi");
+    result = result.replace(reg, m => `<span class="highlight">${m}</span>`);
+  }
+  return result;
+}
+
+/* ================= RENDER ================= */
+
+function renderQA(query=""){
+  const list = document.getElementById("qaList");
+  list.innerHTML = "";
+
+  let filtered = qa
+    .map(item => ({...item, s: score(item, query)}))
+    .filter(i => !query || i.s > 0)
+    .sort((a,b)=>b.s-a.s);
+
+  filtered.forEach((item, index)=>{
+    const div = document.createElement("div");
+    div.className = "qa-item";
+
+    div.innerHTML = `
+      <b>${highlight(item.q, query)}</b>
+      <div class="answer">${highlight(item.a, query)}</div>
+    `;
+
+    div.onclick = ()=>{
+      const ans = div.querySelector(".answer");
+      ans.style.display = ans.style.display === "block" ? "none" : "block";
+    };
+
+    list.appendChild(div);
+
+    // auto-open top match
+    if(index === 0 && query.length > 2){
+      setTimeout(()=>{
+        div.querySelector(".answer").style.display = "block";
+      }, 100);
+    }
+  });
+}
+
+renderQA();
+
+/* ================= SEARCH INPUT ================= */
+document.getElementById("search").addEventListener("input", e=>{
+  renderQA(e.target.value);
+});
+
+/* ================= COMMAND PALETTE ================= */
+const cmd = document.getElementById("cmd");
+const cmdInput = document.getElementById("cmdInput");
+
+document.addEventListener("keydown",(e)=>{
+  if((e.metaKey||e.ctrlKey) && e.key==="k"){
+    e.preventDefault();
+    cmd.style.display="block";
+    cmdInput.focus();
+  }
+
+  if((e.metaKey||e.ctrlKey) && e.key==="j"){
+    e.preventDefault();
+    show("slides");
+  }
+
+  if(e.key==="Escape"){
+    cmd.style.display="none";
+  }
+});
+
+cmdInput.addEventListener("input",e=>{
+  renderQA(e.target.value);
+});
+
+</script>
+
+</body>
+</html>
